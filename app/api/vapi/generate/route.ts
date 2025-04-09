@@ -14,8 +14,9 @@ export async function POST(request: Request){
     const { type, role, level, techstack, amount, userid } = await request.json();
 
     try {
-        //generate text that our Vapi ai agent will then use : use nextjs AI SDK
 
+        //generate text that our Vapi ai agent will then use : use nextjs AI SDK
+        
         const { text: questions } = await generateText({
             model: google("gemini-2.0-flash-001"),
             prompt: `Prepare questions for a job interview.
@@ -36,6 +37,7 @@ export async function POST(request: Request){
         //store to the database so the vapi ai agent can use it
 
         const interview = {
+            
             role, type, level,
             techstack: techstack.split(','),
             questions: JSON.parse(questions),
@@ -50,6 +52,7 @@ export async function POST(request: Request){
         
         return Response.json({ success: true}, {status : 200});
  
+        // deploy our 
     } catch (error) {
         console.error(error);
 
